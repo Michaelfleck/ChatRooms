@@ -1,16 +1,15 @@
-import './App.css';
-import ChatArea from './ChatArea';
-
-import {useState} from 'react'
-import Login from './Login';
+import { ChakraProvider } from "@chakra-ui/react";
+import "./App.css";
+import ChatArea from "./ChatArea";
+import Login from "./Login";
 
 function App() {
-
-
   return (
     <div className="App">
-      <ChatArea/>
-      <Login/>
+      <ChakraProvider>
+        <ChatArea />
+        <Login />
+      </ChakraProvider>
     </div>
   );
 }
