@@ -1,14 +1,16 @@
 import './App.css';
-import Home from './Home.js'
+import ChatArea from './ChatArea';
 
 import {useState} from 'react'
+import Login from './Login';
 
 function App() {
 
 
   return (
     <div className="App">
-      <Home/>
+      <ChatArea/>
+      <Login/>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    has_many :messages
+    has_many :channels, through: :messages
     has_secure_password
     # mount_uploader :avatar, AvatarUploader
     validates :email, presence: true, uniqueness: true
