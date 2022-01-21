@@ -19,6 +19,9 @@ gem 'bcrypt', '~> 3.1.7'
 #Json Web Token
 gem 'jwt'
 
+#Draper adds an object-oriented layer of presentation logic to your Rails application.
+gem 'draper'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

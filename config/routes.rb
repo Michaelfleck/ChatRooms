@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :user_channels
   resources :messages
   resources :channels
   # Routing logic: fallback requests for React Router.
