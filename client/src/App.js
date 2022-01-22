@@ -4,21 +4,22 @@ import "./App.css";
 import ChatArea from "./ChatArea";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import UserProvider from "./UserCtx";
 
 function App() {
   return (
     <div className="App">
-      
-        <BrowserRouter>
-         <ChakraProvider>
-          <Routes>
-            <Route path="/chat" element={<ChatArea/>}></Route>
-            <Route path="/" element={<Login/>}></Route>
-            <Route path="/signup" element={<SignUp/>}></Route>
-          </Routes>
-          </ChakraProvider>
-        </BrowserRouter>
-
+      <BrowserRouter>
+        <ChakraProvider>
+          <UserProvider>
+            <Routes>
+              <Route path="/chat" element={<ChatArea />}></Route>
+              <Route path="/" element={<Login />}></Route>
+              <Route path="/signup" element={<SignUp />}></Route>
+            </Routes>
+          </UserProvider>
+        </ChakraProvider>
+      </BrowserRouter>
     </div>
   );
 }
