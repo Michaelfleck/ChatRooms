@@ -13,8 +13,8 @@ class ChannelsController < ApplicationController
     end
 
     def show
-        @channel = Channel.find(params[:id])
-        @json_object = ChatRoomSerializer.new(@chat_room).as_json
+        channel = Channel.find(params[:id])
+        json_object = ChannelSerializer.new(channel).as_json
     end
 
     def create
@@ -30,16 +30,18 @@ class ChannelsController < ApplicationController
     # GET /channels/list
     # Get all messages by channel ID
     def list
-        filtered_channel = Channel.joins(:messages).where(channel_id: filtered_channel_params)
+        # filtered_channel = Channel.joins(:messages).where(id: params[:id])
+        # render json: filtered_channel
+
+        channel = Channel.where(id: params[:id])[0]
+        messages = Message.where(channel_id: params[:id])
+
+        render json: { channel:channel, messages:messages }
     end
 
     private
     def channel_params
         params.require(:channel).permit(:title)
-    end
-
-    def filtered_channel_params
-        params.require(:channel).permit(:channel_id)
     end
 end
 
