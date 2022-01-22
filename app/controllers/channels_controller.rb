@@ -18,9 +18,12 @@ class ChannelsController < ApplicationController
     end
 
     def create
-        
         newchannel = Channel.create!(channel_params)
-        render json: newchannel, status: :created
+        new_user_channel = UserChannel.create(channel_id: newchannel.id, user_id: @current_user.id)
+        puts "---------"
+        puts new_user_channel
+        puts "---------"
+        render json: {channel:newchannel, user_channel:new_user_channel}, status: :created
         logger.debug ""
         
     rescue ActiveRecord::RecordInvalid => invalid
@@ -34,7 +37,7 @@ class ChannelsController < ApplicationController
         # render json: filtered_channel
 
         channel = Channel.where(id: params[:id])[0]
-        messages = Message.where(channel_id: params[:id])
+        messages = Message.where(channel_id: params[:id]).order(created_at: :desc)
 
         render json: { channel:channel, messages:messages }
     end

@@ -1,9 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import { Input, Flex, Box, Text, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 // import AuthContext from "./context/AuthProvider";
 
 const Login = () => {
   // const { setAuth } = useContext(AuthContext);
+  console.log("hello")
   const userRef = useRef();
   const errRef = useRef();
 
@@ -111,8 +113,9 @@ const Login = () => {
               Need an Account?
             </Text>
             <span className="line">
-              {/* put router link here*/}
-              <Text>Sign Up</Text>
+              <Link to="/signup">
+                <Text>Sign Up</Text>
+              </Link>
             </span>
           </Flex>
         </Flex>

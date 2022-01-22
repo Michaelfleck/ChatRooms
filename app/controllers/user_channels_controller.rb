@@ -1,6 +1,6 @@
 class UserChannelsController < ApplicationController
 
-
+    before_action :authorize_request
 
     def create
         
@@ -12,6 +12,14 @@ class UserChannelsController < ApplicationController
         render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 
+
+    def list_by_user
+        puts "hello"
+        puts @current_user.attributes
+        puts "hello"
+        user_channel_list = UserChannel.where(user_id: @current_user.id)
+        render json: user_channel_list 
+    end
 
 
     private

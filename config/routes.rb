@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/auth/login', to: 'authentication#login'
   
   get '/channels/list/:id', to: 'channels#list'
+  get '/userchannels', to: 'user_channels#list_by_user'
 
 
 
