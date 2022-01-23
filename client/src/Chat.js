@@ -3,13 +3,15 @@ import Channel from "./Channel";
 import People from "./People";
 import { GridItem, Grid, Flex, Text, Button } from "@chakra-ui/react";
 import { UserContext } from "./UserCtx";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Chat() {
   const navigate = useNavigate();
 
   const { user, logout } = useContext(UserContext);
+
+  const [ currentChannelID, setCurrentChannelID ] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -40,7 +42,7 @@ function Chat() {
             </Button>
           </Flex>
         </GridItem>
-        <ChannelList />
+        <ChannelList currentChannelID={currentChannelID} setCurrentChannelID={setCurrentChannelID}/>
         <Channel />
       </Grid>
     </div>
