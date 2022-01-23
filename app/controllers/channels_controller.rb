@@ -3,12 +3,7 @@ class ChannelsController < ApplicationController
 
     def index
 
-        @channel_decor = ChannelDecorator.decorate_collection(Channel.all)
-
-        channels = Channel.joins(:user_channels).where(user_channels: { user_id: @current_user.id }).uniq
-        # channel filter by @current_user
-        # https://edgeguides.rubyonrails.org/active_record_querying.html
-        # Channel.joins(:messages).where(messages: { user_id: 1 }).uniq
+        channels = Channel.all
         render json: channels
     end
 
@@ -30,16 +25,16 @@ class ChannelsController < ApplicationController
         render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 
-    # GET /channels/list
-    # Get all messages by channel ID
-    def list
-        # filtered_channel = Channel.joins(:messages).where(id: params[:id])
-        # render json: filtered_channel
+    def mychannels
+        # @channel_decor = ChannelDecorator.decorate_collection(Channel.all)
 
-        channel = Channel.where(id: params[:id])[0]
-        messages = Message.where(channel_id: params[:id]).order(created_at: :desc)
-
-        render json: { channel:channel, messages:messages }
+        channels = Channel.joins(:user_channels).where(user_channels: { user_id: @current_user.id }).uniq
+        puts "-------123"
+        puts channels.inspect
+        # channel filter by @current_user
+        # https://edgeguides.rubyonrails.org/active_record_querying.html
+        # Channel.joins(:messages).where(messages: { user_id: 1 }).uniq
+        render json: channels
     end
 
     private

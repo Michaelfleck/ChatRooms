@@ -1,18 +1,48 @@
-import { VStack, Heading, Text } from "@chakra-ui/react";
+import { Button, Text, Flex, Divider } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { UserContext } from "./UserCtx";
 
+function ChannelList() {
+  const [channels, setChannels] = useState([]);
 
-function ChannelList(){
-    
+  const { jwt } = useContext(UserContext);
 
-    return(
-        <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-end" bg="blue.50">
-            <VStack alignItems="flex-start">
-                <Heading size="sm">+ New Channel</Heading>
-                <Text>Channel 1</Text>
-            </VStack>
-        </VStack>  
-    )
+  useEffect(() => {
+    const promise = async () => {
+      const response = await axios.get("http://localhost:3000/my/channels", {
+        headers: { Authorization: jwt },
+      });
+      setChannels(response.data);
+      console.log(response.data);
+    };
+    promise();
+  }, [jwt]);
+
+  return (
+    <Flex
+      direction="column"
+      bgColor="blue.50"
+      pt="8"
+      px="4"
+      alignItems="flex-start"
+      w="100%"
+    >
+      {channels.map((channel) => 
+        <Flex direction="column" key={channel.id} w="100%">
+          <Flex>
+          <Text pr="2">#</Text>
+          <Text>{channel.title}</Text>
+          </Flex>
+          <Divider my="1" w="100%"/>
+        </Flex>
+      )}
+      <Button colorScheme="blue" leftIcon={<AddIcon />} alignSelf="center">
+        New Channel
+      </Button>
+    </Flex>
+  );
 }
-
 
 export default ChannelList;

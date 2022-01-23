@@ -11,7 +11,7 @@ function Channel(){
             </VStack>
             <VStack>
                 <Text>User1, User2</Text>
-            </VStack>
+            </VStack> 
         </VStack> 
     )
 }

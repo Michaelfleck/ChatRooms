@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   resources :users, param: :_username
   post '/auth/login', to: 'authentication#login'
   
-  get '/channels/list/:id', to: 'channels#list'
+  get '/channels/:id/messages', to: 'messages#index_by_channel'
   get '/userchannels', to: 'user_channels#list_by_user'
+  get '/my/channels', to: 'channels#mychannels'
 
 
 

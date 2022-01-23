@@ -15,23 +15,46 @@ const UserProvider = ({ children }) => {
         email,
         password,
       });
-      setUser({ email, password });
+      setUser({
+        email,
+        username: response.data.username,
+        name: response.data.name,
+        id: response.data.id,
+      });
       setJwt(response.data.token);
-      toast({ title: "Login Successful", status: "success" });
+      toast({
+        title: "Login Successful",
+        position: "top-right",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
     } catch (error) {
       toast({
         title: "Error",
         position: "top-right",
         description: "Login failed",
         status: "error",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
   };
 
+  const logout = () => {
+    setJwt(null);
+    setUser(null);
+    toast({
+      title: "Logged Out Successfully",
+      position: "top-right",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
-    <UserContext.Provider value={{ user, jwt, login }}>
+    <UserContext.Provider value={{ user, jwt, login, logout }}>
       {children}
     </UserContext.Provider>
   );

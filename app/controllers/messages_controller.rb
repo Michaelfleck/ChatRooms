@@ -13,6 +13,18 @@ class MessagesController < ApplicationController
         render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 
+    # GET /channels/:id/messages
+    # Get all messages by channel ID
+    def index_by_channel
+        # filtered_channel = Channel.joins(:messages).where(id: params[:id])
+        # render json: filtered_channel
+
+        channel = Channel.where(id: params[:id])[0]
+        messages = Message.where(channel_id: params[:id]).order(created_at: :desc)
+
+        render json: { channel:channel, messages:messages }
+    end
+
     
 
     private
