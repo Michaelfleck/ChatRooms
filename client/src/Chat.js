@@ -8,10 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 function Chat() {
   const navigate = useNavigate();
-
   const { user, logout } = useContext(UserContext);
-
-  const [ currentChannelID, setCurrentChannelID ] = useState(null);
+  const [currentChannelID, setCurrentChannelID] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -22,28 +20,38 @@ function Chat() {
   return (
     <div className="Chat">
       <Grid
-        templateColumns="18em auto"
         templateRows="4em auto"
-        pb="8"
         h="100vh"
-        w="w-full"
+        overflowY="none"
+        pb="8"
         px={{ lg: "36", md: "16", sm: "0" }}
       >
-        <GridItem colSpan={2}>
-          <Flex justify="end" alignItems="center" h="100%">
-            <Text pr="4">{`Hello, ${user?.name}`}</Text>
-            <Button
-              onClick={(e) => {
-                e.preventDefault();
-                logout();
-              }}
-            >
-              Log Out
-            </Button>
-          </Flex>
-        </GridItem>
-        <ChannelList currentChannelID={currentChannelID} setCurrentChannelID={setCurrentChannelID}/>
-        <Channel />
+        <Flex justify="end" alignItems="center" h="100%">
+          <Text pr="4">{`Hello, ${user?.name}`}</Text>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              logout();
+            }}
+            colorScheme="blue"
+          >
+            Log Out
+          </Button>
+        </Flex>
+        <Grid
+          shadow="md"
+          rounded="lg"
+          templateColumns="18em auto"
+          h="100%"
+          w="w-full"
+          overflowY="hidden"
+        >
+          <ChannelList
+            currentChannelID={currentChannelID}
+            setCurrentChannelID={setCurrentChannelID}
+          />
+          <Channel currentChannelID={currentChannelID} />
+        </Grid>
       </Grid>
     </div>
   );
